@@ -1,7 +1,7 @@
 ## CLIP-DFGS: A Hard Sample Mining Method for CLIP in Generalizable Person Re-Identification
 
 
-![pipeline](figures/DFS.png)
+![pipeline](DFS.png)
 
 
 
@@ -189,4 +189,4 @@ class DepthFirstGraphSamplerText(Sampler):
 
 Our method has achieved excellent results.
 
-
+![experiments](experiments.png)
