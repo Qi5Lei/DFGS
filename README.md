@@ -195,5 +195,12 @@ Our method has achieved excellent results.
 # Citation
 
 ```tex
+@article{10.1145/3701036,
+author = {Zhao, Huazhong and Qi, Lei and Geng, Xin},
+title = {CLIP-DFGS: A Hard Sample Mining Method for CLIP in Generalizable Person Re-Identification},
+year = {2024},
+journal = {ACM Trans. Multimedia Comput. Commun. Appl.},
+}
+
 
 ```
