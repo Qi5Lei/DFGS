@@ -16,8 +16,9 @@ Thanks for their contributions.
 
 *We will release the full code in the future.*
 
-If you are using the above-mentioned framework, you just need to place  our DFGS code in the sampler package and import it for use.
+If you are using the above-mentioned framework, you just need to place our DFGS code in the sampler package and import it for use.
 
+You can run the project by modifying the corresponding configuration (cfg) files and using the run.py script.
 
 
 
