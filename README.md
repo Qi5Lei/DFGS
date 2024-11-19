@@ -14,7 +14,6 @@
 
 Thanks for their contributions.
 
-*We will release the full code in the future.*
 
 If you are using the above-mentioned framework, you just need to place our DFGS code in the sampler package and import it for use.
 
