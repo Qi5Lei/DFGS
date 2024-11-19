@@ -7,7 +7,7 @@ import warnings
 import torch
 import torch.multiprocessing
 torch.multiprocessing.set_sharing_strategy('file_system')
-cuda_id = 1
+cuda_id = 0
 os.environ['CUDA_VISIBLE_DEVICES'] = str(cuda_id)
 warnings.filterwarnings("ignore")
 from cfgs import *
@@ -68,10 +68,8 @@ def run(model,
         val_loaders,
         criterion,
         optimizer_prompt,
-        optimizer_prompt_domain,
         optimizer_image_encoder,
         scheduler_prompt,
-        scheduler_prompt_domain,
         scheduler_image_encoder
         ):
     train_p1(train_loader_stagep=train_loader_stagep,
@@ -349,10 +347,10 @@ def test(testloaders, model, logger_test):
 
 
 if __name__ == "__main__":
-
+    time.sleep(3*60*60)
     parser = argparse.ArgumentParser(description='train')
     parser_test = argparse.ArgumentParser(description='test')
-    parsertrain, parsertest, logname = protocol_1(parser, parser_test)
+    parsertrain, parsertest, logname = protocol_ALL(parser, parser_test)
 
     args_train = parsertrain.parse_args()
     args_test = parsertest.parse_args()
@@ -365,28 +363,24 @@ if __name__ == "__main__":
     logger_train.info("Running protocol- {}->{}".format(args_train.train_datasets, args_test.test_datasets))
 
     model = get_model(args_train).cuda()
-    train_loader_stagep, train_loader_stage1, train_loader_stage2, val_loaders = build_data_loader(args_train, args_test,model,logger_train)
+    train_loader_com, train_loader_stage1, train_loader_stage2, val_loaders = build_data_loader(args_train, args_test,model,logger_train)
     criterion = make_loss(sum(args_train.classes))
 
     optimizer_prompt = make_optimizer_prompt(model, args_train)
-    optimizer_prompt_domain = make_optimizer_prompt_domain(model, args_train)
     optimizer_image_encoder = make_optimizer_for_IE(model, args_train)
 
     scheduler_prompt = create_scheduler(args_train.prompt_epoch,args_train.prompt_lr, optimizer_prompt)
-    scheduler_prompt_domain = create_scheduler(args_train.prompt_domain_epoch,args_train.prompt_lr, optimizer_prompt_domain)
     scheduler_image_encoder = WarmupMultiStepLR(optimizer_image_encoder, [30, 50], 0.1, 0.1, 10, 'linear')
 
     run(model,
-        train_loader_stagep,
+        train_loader_com,
         train_loader_stage1,
         train_loader_stage2,
         val_loaders,
         criterion,
         optimizer_prompt,
-        optimizer_prompt_domain,
         optimizer_image_encoder,
         scheduler_prompt,
-        scheduler_prompt_domain,
         scheduler_image_encoder
         )
 
