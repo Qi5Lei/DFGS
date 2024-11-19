@@ -23,7 +23,8 @@ from torch.cuda import amp
 from torch import nn
 from datasets.build import build_data_loader
 from loss import make_loss
-from solver import create_scheduler, WarmupMultiStepLR, make_optimizer_for_IE, make_optimizer_prompt
+from solver import create_scheduler, WarmupMultiStepLR, make_optimizer_for_IE, \
+    make_optimizer_prompt_domain, make_optimizer_prompt
 from loss.supcontrast import SupConLoss
 
 sys.path.append('/')
@@ -78,8 +79,7 @@ def run(model,
                       scheduler=scheduler_image_encoder,
                       args_train=args_train,
                       logger_train=logger_train,
-                      log_path=log_path,
-                      epochs=args_train.prior_epoch)
+                      log_path=log_path)
 
 
     train_stage1(train_loader_stage1=train_loader_stage1,
@@ -346,7 +346,6 @@ def test(testloaders, model, logger_test):
 
 
 if __name__ == "__main__":
-    time.sleep(3*60*60)
     parser = argparse.ArgumentParser(description='train')
     parser_test = argparse.ArgumentParser(description='test')
     parsertrain, parsertest, logname = protocol_ALL(parser, parser_test)
