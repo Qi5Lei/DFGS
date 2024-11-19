@@ -23,8 +23,7 @@ from torch.cuda import amp
 from torch import nn
 from datasets.build import build_data_loader
 from loss import make_loss
-from solver import create_scheduler, WarmupMultiStepLR, make_optimizer_for_IE, \
-    make_optimizer_prompt_domain, make_optimizer_prompt
+from solver import create_scheduler, WarmupMultiStepLR, make_optimizer_for_IE, make_optimizer_prompt
 from loss.supcontrast import SupConLoss
 
 sys.path.append('/')
